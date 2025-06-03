@@ -1,0 +1,14 @@
+all:
+  children:
+    local:
+      hosts:
+        sami:
+          ansible_connection: local
+        toto:
+          ansible_connection: local
+    ping:
+      hosts:
+        gael:
+          ansible_connection: local
+        ewen:
+          ansible_connection: local

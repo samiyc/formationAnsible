@@ -1,0 +1,5 @@
+- name: Run firstRole role
+  hosts: all
+  become: true
+  roles:
+    - firstRole

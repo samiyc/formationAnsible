@@ -1,0 +1,8 @@
+- name: Exemple de playbook Ansible
+  hosts: all
+  gather_facts: false # verification sur la target, disque, ram, pour éviter les bloquages lors du déployement
+  connection: local
+  tasks:
+    - name: Affiche le nom de l'hôte
+      ansible.builtin.debug:
+        msg: "L'hôte est {{ inventory_hostname }}"

@@ -1,0 +1,15 @@
+- name: Exemple de playbook Ansible
+  hosts: sami
+  gather_facts: false # verification sur la target, disque, ram, pour éviter les bloquages lors du déployement
+  connection: local
+  vars:
+    maVar: cmatrix
+  tasks:
+    - name: Affiche la var
+      ansible.builtin.debug:
+        msg: "La valeur de la var est {{ maVar }}"
+    - name: install package
+      become: true
+      ansible.builtin.package:
+        name: "{{ maVar }}"
+        state: present 

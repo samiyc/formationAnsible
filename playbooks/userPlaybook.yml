@@ -1,0 +1,24 @@
+- name: Exemple de playbook Ansible
+  hosts: sami
+  gather_facts: false # verification sur la target, disque, ram, pour éviter les bloquages lors du déployement
+  connection: local
+  vars:
+    maVar: newUserTest
+  tasks:
+    - name: création du user {{maVar}}
+      become: true
+      tags: creation
+      user:
+        name: "{{maVar}}"
+        state: present
+        shell: /sbin/nologin
+        generate_ssh_key: yes
+        groups: sudo
+        append: yes
+        password: "{{ '123Soleil!' | password_hash('sha512') }}"
+        password_lock: yes
+    - name: suppression du user {{maVar}}
+      tags: delete
+      user:
+        name: "{{maVar}}"
+        state: present
