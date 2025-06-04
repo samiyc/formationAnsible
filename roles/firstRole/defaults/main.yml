@@ -4,17 +4,17 @@
 
 ### Packages ###
 packages:
-  - {name:ansible, state: present}
-  - {name:python3-pip, state: present}
-  - {name:python3-venv, state: present}
-  - {name:git, state: present}
-  - {name:curl, state: present}
-  - {name:wget, state: present}
-  - {name:unzip, state: present}
-  - {name:jq, state: present}
+  - {name: ansible, state: present}
+  - {name: python3-pip, state: present}
+  - {name: python3-venv, state: present}
+  - {name: git, state: present}
+  - {name: curl, state: present}
+  - {name: wget, state: present}
+  - {name: unzip, state: present}
+  - {name: jq, state: present}
 
 pip_packages:
-  - ansible-lint
+  - {name: ansible-lint, state: present}
 
 ### Default SSH values ###
 ssh_port: 22
@@ -30,5 +30,4 @@ visudo_command: "ALL=(ALL) ALL" # L'utilisateur devra entrer son mot de passe po
 ### Default Users ###
 users:
   - { name: "alex", groups: "sudo", shell: "/bin/bash", password: "alex", ssh_key: "ssh-rsa AAAAB3NzaC1yc2EA" }
-  - { name: "titi", groups: "sudo", shell: "/bin/bash", password: "titi", ssh_key: "ssh-rsa AMLKJIFMLKJS" }
-  - { name: "toto", groups: "sudo", shell: "/bin/bash", password: "toto", ssh_key: "ssh-rsa AMLKJIFMLKJS" }
+  - { name: "jhon", groups: "sudo", shell: "/bin/bash", password: "jhon", ssh_key: "ssh-rsa AMLKJIFMLKJS" }

@@ -18,10 +18,14 @@
 - name: Install package
   become: true
   ansible.builtin.package:
-    name: "{{ maVar }}"
+    name: "{{ item.name }}"
     state: "{{ item.state }}"
   loop: "{{ packages }}" # Loop sur les packages
-  when: item.name is defined and item.state is defined
+  loop_control:
+    label: "Le package {{ item.name }} est {{ item.state }}"
+  when:
+    - item.name is defined
+    - item.state is defined
 
 - name: Set hostname
   ansible.builtin.hostname:
