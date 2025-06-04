@@ -7,6 +7,8 @@
     password: "{{ item.password | password_hash('sha512') }}"
   loop: "{{ users }}" # Loop sur les utilisateurs
   when: users is defined # parcours de la loop si L'utilisateur est défini
+  tags:
+    - user
 
 - name: Set authorized SSH key(s) for user(s)
   ansible.posix.authorized_key:
@@ -14,6 +16,8 @@
     key: "{{ item.ssh_key }}"
   loop: "{{ users }}" # Loop sur les users
   when: item.ssh_key is defined
+  tags:
+    - user
 
 - name: Install package
   become: true
@@ -26,7 +30,11 @@
   when:
     - item.name is defined
     - item.state is defined
+  tags:
+    - package
 
 - name: Set hostname
   ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
+  tags:
+    - hostname
