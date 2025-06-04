@@ -1,19 +1,27 @@
 ---
 - name: Ensure user(s) exist
   ansible.builtin.user:
-    name: "{{ item.name }}"       # item.var correspond a chacun des items de la loops
+    name: "{{ item.name }}" # item.var correspond a chacun des items de la loops
     groups: "{{ item.groups }}"
     shell: "{{ item.shell }}"
     password: "{{ item.password | password_hash('sha512') }}"
-  loop: "{{ users }}"       # Loop sur les utilisateurs
-  when: users is defined    # parcours de la loop si l'uili
+  loop: "{{ users }}" # Loop sur les utilisateurs
+  when: users is defined # parcours de la loop si L'utilisateur est défini
 
 - name: Set authorized SSH key(s) for user(s)
   ansible.posix.authorized_key:
     user: "{{ item.name }}"
     key: "{{ item.ssh_key }}"
-  loop: "{{ users }}"          # Loop sur les users
+  loop: "{{ users }}" # Loop sur les users
   when: item.ssh_key is defined
+
+- name: Install package
+  become: true
+  ansible.builtin.package:
+    name: "{{ maVar }}"
+    state: "{{ item.state }}"
+  loop: "{{ packages }}" # Loop sur les packages
+  when: item.name is defined and item.state is defined
 
 - name: Set hostname
   ansible.builtin.hostname:
